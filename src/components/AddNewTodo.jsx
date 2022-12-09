@@ -7,7 +7,7 @@ const AddNewTodo = (props) => {
     event.preventDefault();
 
     const newTodoText = inputRef.current.value;
-    props.handleAddTodo(newTodoText);
+    props.addItem(newTodoText);
     inputRef.current.value = "";
   };
 

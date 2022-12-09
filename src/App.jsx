@@ -14,6 +14,12 @@ function App() {
     { text: "Shop for christmas presents", done: false },
   ];
 
+  // `tasks` will be use to initialize the `items` variable.
+  // It will be used only the first time this component is
+  // rendered. Whenever setItems() is called, React will
+  // store the new version of `items`, and then re-render
+  // the component, using the new version of `items`. The
+  // value of `tasks` will be ignored for these re-renders.
   const [items, setItems] = useState(tasks);
 
   const updateItem = (todoText) => {
@@ -53,20 +59,28 @@ function App() {
   };
 
   const toDos = items.filter((item) => !item.done);
-  const toDones = items.filter((item) => item.done);
+  const toBeDones = items.filter((item) => item.done);
 
+  // Use the same components for both toDos and toBeDones.
+  // The only differences are:
+  // + The component used for the toDos will have an addItem
+  //   function as a prop
+  // + The component used for the toBeDones will have a done
+  //   property, set to true
+  // The presence or absence of these props will affect what
+  // the ToDosContainer renders
   return (
     <div className="app">
       <Navigation />
       <ToDosContainer
         items={toDos}
-        handleAddTodo={addItem}
-        handleChange={updateItem}
+        addItem={addItem}
+        updateItem={updateItem}
       />
       <ToDosContainer
        done={true}
-       items={toDones}
-       handleChange={updateItem} />
+       items={toBeDones}
+       updateItem={updateItem} />
     </div>
   );
 }

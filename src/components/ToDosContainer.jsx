@@ -4,7 +4,9 @@
 import AddNewTodo from "./AddNewTodo";
 import { ToDoItem } from "./ToDoItem";
 
-const ToDosContainer = ({items, handleChange, handleAddTodo, done}) => {
+const ToDosContainer = ({items, updateItem, addItem, done}) => {
+  // addItem and done may be undefined
+  
   //   console.log("todos container props ->", props);
   // props = {items: [text...]}
 
@@ -15,13 +17,15 @@ const ToDosContainer = ({items, handleChange, handleAddTodo, done}) => {
       key={item.text}
       item={item}
       done={done}
-      handleChange={handleChange}
+      updateItem={updateItem}
     />
   ));
 
+  // Determine the title and the presence of the AddNewTodo
+  // component, depending on the props that were passed
   const title = done ? "Backlog" : "To Do"
-  const AddToDo = handleAddTodo
-                ? <AddNewTodo handleAddTodo={handleAddTodo} />
+  const AddToDo = addItem
+                ? <AddNewTodo addItem={addItem} />
                 : ""
 
   return (
